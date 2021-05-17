@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: -5143445227805244574}
   - component: {fileID: -6092768559841755777}
   - component: {fileID: 4522426418409356763}
+  - component: {fileID: -3387106881538975087}
+  - component: {fileID: -5947700578656200972}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -129,6 +131,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  scorePoint: 100
+  explosionPrefabs: {fileID: 4961805568430236513, guid: 6440870597df53a43b6e85523e674794,
+    type: 3}
+  itemPrefabs:
+  - {fileID: 4206640061451786357, guid: 45864e925ad37de46988a37bb1e6e730, type: 3}
+  - {fileID: 4866746254679803102, guid: f8d2e6508b073ce44bbd90f76b3fe07f, type: 3}
+  - {fileID: 5718132224683440943, guid: b9fe5026ad550ef49b646b5eb11ca0fa, type: 3}
 --- !u!114 &4522426418409356763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +151,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageData: {fileID: 11400000, guid: 7f86e2ea2cbfb9845ab3750b0c2786cd, type: 2}
+--- !u!95 &-3387106881538975087
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981162462722724198}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 635ef093178571045971c1b2150f8c7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-5947700578656200972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981162462722724198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb8a4c8fc95a4741aeba60b7d811bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 4
