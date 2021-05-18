@@ -13,15 +13,31 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private Transform canvasTransform; // UI를 표현하는 canvs 오브젝트의 Transform
     [SerializeField]
+    private BGMController bgmController; // 배경음악 설정 (보스 등장시 변경)
+    [SerializeField]
+    private GameObject textBossWarning; // 보스 등장 텍스트 오브젝트
+    [SerializeField]
+    private GameObject panelBossHP; // 보스 체력 패널 오브젝트
+    [SerializeField]
+    private GameObject boss; // 보스 오브젝트
+    [SerializeField]
     private float spawnTime; // 생성 주기
+    [SerializeField]
+    private int maxEnemyCount = 100; // 현재 스테이지의 최대 적 생성 숫자
 
     private void Awake()
     {
+        textBossWarning.SetActive(false);
+        panelBossHP.SetActive(false);
+        boss.SetActive(false);
+
         StartCoroutine("SpawnEnemy");    
     }
 
     private IEnumerator SpawnEnemy()
     {
+        int currentEnemyCount = 0; // 적 생성 숫자 카운트용 변수
+
         while (true)
         {
             // x 위치는 스테이지의 크기 범위 내에서 임의의 값을 선택
@@ -30,6 +46,15 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemyClone = Instantiate(enemyPrefab, new Vector3(positionX, stageData.LimitMax.y + 1.0f, 0.0f), Quaternion.identity);
             // 적 체력을 나타내는 Slider UI 생성 및 설정
             SpawnEnemyHPSlider(enemyClone);
+
+            currentEnemyCount++;
+
+            if(currentEnemyCount == maxEnemyCount)
+            {
+                StartCoroutine("SpawnBoss");
+                break;
+            }
+
             // spawnTime 만큼 대기
             yield return new WaitForSeconds(spawnTime);
         }
@@ -46,6 +71,23 @@ public class EnemySpawner : MonoBehaviour
         sliderClone.GetComponent<SliderPositionAutoSetter>().Setup(enemy.transform);
         //Sllider 에 자신의 체력 정보를 표시하도록 설정
         sliderClone.GetComponent<EnemyHPViewer>().Setup(enemy.GetComponent<EnemyHP>());
+    }
+
+    private IEnumerator SpawnBoss()
+    {
+        bgmController.ChangeBGM(BGMType.Boss);
+        
+        textBossWarning.SetActive(true);
+        
+        yield return new WaitForSeconds(1.0f);
+        
+        textBossWarning.SetActive(false);
+
+        panelBossHP.SetActive(true);
+
+        boss.SetActive(true);
+
+        boss.GetComponent<Boss>().ChangeState(BossState.MoveToAppearPoint);
     }
 
 }

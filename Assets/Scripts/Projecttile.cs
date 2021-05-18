@@ -15,5 +15,10 @@ public class Projecttile : MonoBehaviour
             collision.GetComponent<EnemyHP>().TakeDamage(damage);
             Destroy(gameObject);
         }
+        if (collision.CompareTag("Boss"))
+        {
+            collision.GetComponent<BossHP>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
     }
 }

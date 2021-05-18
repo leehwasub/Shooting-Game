@@ -8,6 +8,8 @@ public class PlayerBoom : MonoBehaviour
     private AnimationCurve curve;
     [SerializeField]
     private AudioClip boomAudio;
+    [SerializeField]
+    private int damage = 100;
     private float boomDelay = 0.5f;
     private Animator animator;
     private AudioSource audioSource;
@@ -58,6 +60,18 @@ public class PlayerBoom : MonoBehaviour
         for(int i = 0; i < meteorites.Length; i++)
         {
             meteorites[i].GetComponent<Meteorite>().OnDie();
+        }
+
+        GameObject[] projectTiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+        for(int i = 0; i < projectTiles.Length; i++)
+        {
+            projectTiles[i].GetComponent<EnemyProjectile>().OnDie();
+        }
+
+        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+        if(boss != null)
+        {
+            boss.GetComponent<BossHP>().TakeDamage(damage);
         }
 
         Destroy(gameObject);
